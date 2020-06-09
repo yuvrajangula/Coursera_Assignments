@@ -1,0 +1,9 @@
+<ol>
+    <li ng-repeat="item in fitems.items">
+        <h4>{{item.name}}</h4>
+        <!-- <description></description> -->
+        <p class="description{{$index}}">{{item.description | match : fitems.keyValue  : $index }}</p>
+        <button class="btn btn-primary" ng-click='fitems.onRemove($index)'>Don't want this one!</button>
+    </li>
+</ol>
+<div ng-if="fitems.items<=0" class="error"><h3>{{fitems.errorMsg}}</h3></div>

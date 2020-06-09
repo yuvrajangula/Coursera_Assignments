@@ -1,7 +1,33 @@
-<ul>
-  <li ng-repeat="item in foundCtrl.items">
-    {{ item.name }}, {{ item.short_name }}, {{item.description}}
-    <button ng-click="foundCtrl.onRemove({index: $index});">Don't want this one!</button>
-  </li>
-</ul>
-<div ng-if="foundCtrl.isNothingFound()">Nothing found.</div>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Narrow Down Your Menu Choice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+  </head>
+<body ng-app="NarrowItDownApp">
+   <div class="container" ng-controller="NarrowItDownController as ndc">
+    <h1>Narrow Down Your Chinese Menu Choice</h1>
+
+    <div class="form-group">
+      <input type="text" placeholder="search term" class="form-control" ng-model="ndc.searchKeyword">
+    </div>
+    <div class="form-group narrow-button">
+      <button class="btn btn-primary" ng-click="ndc.narrowItDownBtnCallback()">Narrow It Down For Me!</button>
+    </div>
+    <br><br><br>
+    <!-- found-items should be implemented as a component -->
+    <found-items
+    found-items="ndc.foundItems"
+    title ="{{ndc.title}}"
+    on-remove="ndc.removeItem()"
+    loading="ndc.loading"
+    error="ndc.error"></found-items>
+    <loading-screen ng-if="ndc.loading"></loading-screen>
+  </div>
+  <script src="./angular.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

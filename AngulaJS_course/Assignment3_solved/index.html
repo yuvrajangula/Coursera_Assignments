@@ -1,30 +1,37 @@
 <!doctype html>
-<html ng-app='NarrowItDownApp' lang="en">
+<html lang="en">
   <head>
     <title>Narrow Down Your Menu Choice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="jquery-3.1.0.min.js"></script>
+  <script src="angular.min.js"></script>
+  <script src="app.js"></script>
+  <style>
+    .highlight{
+      background-color: #FFFF00;
+    }
+    .error{
+      color: crimson;
+    }
+    #search{
+      width: 50%;
+    }
+  </style>
   </head>
-<body>
-   <div ng-controller="NarrowItDownController as narrowCtrl" class="container">
-    <h1>Narrow Down Your Chinese Menu Choice</h1>
-
-    <div class="form-group">
-      <input ng-model="narrowCtrl.searchTerm" type="text" placeholder="search term" class="form-control">
-    </div>
-    <div class="form-group narrow-button">
-      <button ng-click="narrowCtrl.searchMenuItems()" class="btn btn-primary">Narrow It Down For Me!</button>
-    </div>
-
-    <p><br/><hr/></p>
-
-    <found-items
-      items="narrowCtrl.found"
-      on-remove="narrowCtrl.removeItem(index)">
-    </found-items>
+<body ng-app="NarrowItDownApp">
+   <div class="container" ng-controller="NarrowItDownController as narrow">
+     <div class="row">
+      <h1>Narrow Down Your Chinese Menu Choice</h1>
+      <input type="text" id="search" placeholder="search term to Narrow It Down" ng-change='narrow.search()'  ng-model="narrow.keyValue" style="padding: 10px; margin-bottom: 20px;">
+     </div>
+     <div class="row">
+      <!-- found-items should be implemented as a component -->
+      <p>Example : Lets Try "soup".</p>
+      <h2>Founded Items :</h2>
+      <found-items items="narrow.items" error-msg="narrow.error" key-value="narrow.keyValue"></found-items>
+     </div>
 
   </div>
 
